@@ -4,6 +4,11 @@ from layouts.simulador_fabrica import SimuladorFabrica
 def create_app():
   app = Flask(__name__)
 
+  # Rota raiz para teste
+  @app.route('/')
+  def home():
+      return "Bem-vindo à Simulação Just-In-Time!"
+
   '''
   Executa uma simulação com os parâmetros fornecidos
   A aplicação já possui um simulador para cada layout, e o layout é fornecido no corpo da requisição
