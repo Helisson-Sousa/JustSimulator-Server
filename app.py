@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
-from layouts.simulador_fabrica import SimuladorFabrica
+from layouts.simulator_shoe import SimulatorShoe
+from layouts.simulator_car import SimulatorCar
 
 def create_app():
   app = Flask(__name__)
@@ -17,6 +18,9 @@ def create_app():
   @app.route('/simular', methods=['POST'])
   def simular():
     data = request.get_json()
+    print("Dados recebidos:", data)
+
+    
     layout_name = data.get('layout')
     parametros = data.get('parametros')
 
@@ -31,7 +35,13 @@ def create_app():
 
 def get_simulator(name):
   match name:
-    case 'fabrica':
-      return SimuladorFabrica()
+    case 'shoe':
+      return SimulatorShoe()
+    case 'car':
+      return SimulatorCar()
     case _:
       raise ValueError('Layout não encontrado')
+     
+if __name__ == '__main__':
+    app = create_app()
+    app.run(debug=True, host='0.0.0.0', port=5000)
