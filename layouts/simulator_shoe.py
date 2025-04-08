@@ -4,7 +4,7 @@ import numpy as np
 
 class ParametrosSimulatorShoe:
     def __init__(self, parametros={}):
-        self.tempo_simulacao = parametros.get("tempo_simulacao", 480)
+        self.tempo_simulacao = parametros.get("tempo_simulacao", 490)
         self.media_corte = parametros.get("media_corte", 4.4)
         self.std_corte = parametros.get("std_corte", 0.2)
         self.media_costura = parametros.get("media_costura", 4.5)
@@ -73,7 +73,7 @@ class SimulatorShoe:
             self.estoque_cortado -= 1
 
     def chegada_sapatos(self):
-        intervalo_chegada = 480 / self.parametros.estoque_inicial  # Tempo flexível entre chegadas
+        intervalo_chegada = (480 / self.parametros.estoque_inicial)
         while self.estoque_total > 0:
             self.tempo_entrada.append(self.env.now)
             self.env.process(self.processo_corte(len(self.tempo_entrada)))

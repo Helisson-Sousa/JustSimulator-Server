@@ -121,6 +121,8 @@ class SimulatorCar:
         tempos_totais = [(dados['saida'] - dados['entrada']) / 60 for dados in self.tempo_fluxo.values() if dados['saida'] is not None]
         tempo_medio_ciclo = sum(tempos_totais) / len(tempos_totais) if tempos_totais else 0
 
+        print("tempos_saida", self.tempo_fluxo)
+
         # Calculando tempo total útil e ocioso por processo
         tempo_total_uso = {proc: self.uso_processos[proc] / 60 for proc in self.uso_processos}
         tempo_ocioso = {proc: (self.parametros.tempo_simulacao - uso) / 60 for proc, uso in self.uso_processos.items()}
