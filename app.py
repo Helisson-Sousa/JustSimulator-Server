@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from layouts.simulator_shoe import SimulatorShoe
 from layouts.simulator_car import SimulatorCar
 
 def create_app():
   app = Flask(__name__)
+  CORS(app)
 
   # Rota raiz para teste
   @app.route('/')
@@ -45,3 +47,4 @@ def get_simulator(name):
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True, host='0.0.0.0', port=5000)
+    

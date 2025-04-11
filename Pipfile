@@ -9,6 +9,7 @@ start = "flask run"
 [packages]
 flask = "*"
 simpy = "*"
+flask-cors = "*"
 
 [dev-packages]
 
