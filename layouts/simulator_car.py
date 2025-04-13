@@ -74,7 +74,6 @@ class SimulatorCar:
                 peca, chegada_fila = self.container1.popleft()
                 tempo_espera = self.env.now - chegada_fila
                 self.estatisticas_filas['tempo_espera_flamagem'].append(tempo_espera)
-                yield self.env.timeout(random.normalvariate(self.parametros.media_flamagem, self.parametros.std_flamagem))
                 with self.processo_flamagem.request() as request:
                     yield request
                     yield self.env.timeout(self.parametros.tempo_setup_flamagem)
@@ -84,12 +83,11 @@ class SimulatorCar:
                     else:
                         fator_ajuste = 1
 
-                    tempo_flamagem = max(0, random.normalvariate(self.parametros.media_flamagem, self.parametros.std_flamagem)*fator_ajuste)
+                    tempo_flamagem = max(0, random.normalvariate(self.parametros.media_flamagem, self.parametros.std_flamagem) * fator_ajuste)
                     self.uso_processos['flamagem'] += tempo_flamagem
                     yield self.env.timeout(tempo_flamagem)
-                    if len(self.container2) < max(1, self.parametros.estoque_seg_flamagem):
-                        self.container2.append((peca, self.env.now))
-                        self.contagem_processos['flamagem'] += 1
+                    self.container2.append((peca, self.env.now))
+                    self.contagem_processos['flamagem'] += 1
 
     def processamento_colagem(self):
         while True:
